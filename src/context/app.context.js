@@ -16,19 +16,23 @@ const initialState = {
 const initialStateCallback = (state) => {
   const loadedState = localStorage.getItem("state");
 
-  if (loadedState) return JSON.parse(state);
+  if (loadedState) state = { ...state, ...JSON.parse(loadedState) };
 
-  return initialState;
+  return state;
 };
 
 // REDUCER
 const reducer = produce((draft, action) => {
   switch (action.type) {
     case appType.addPokemon:
-      return;
-    case appType.setPokemonName:
+      const newPokemons = [...draft.pokemons, action.payload];
+
+      draft.pokemons = newPokemons;
+
+      localStorage.setItem("state", JSON.stringify(draft));
       return;
     case appType.removePokemon:
+      localStorage.setItem("state", JSON.stringify(draft));
       return;
     default:
       throw new Error("Unknown action type");

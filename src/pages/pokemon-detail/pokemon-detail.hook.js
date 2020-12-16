@@ -1,22 +1,19 @@
 import { useQuery } from "@apollo/client";
 import { useCallback, useState } from "react";
-import { useParams } from "react-router-dom";
-import {
-  useAppDispatchContext,
-  useAppStateContext,
-} from "../../context/app.context";
-import { GetPokemon, GetPokemons } from "../../graph-query/pokemons";
-import { useFetchMore } from "../../hooks/use-fetch-more";
+import { useHistory, useParams } from "react-router-dom";
 
-const LIMIT = 10;
+import { appType, useAppDispatchContext } from "../../context/app.context";
+import { GetPokemon } from "../../graph-query/pokemons";
 
 function usePokemonDetail() {
+  const history = useHistory();
   const { pokemonName } = useParams();
+  const dispatch = useAppDispatchContext();
 
   const [pokemon, setPokemon] = useState({});
-
-  const dispatch = useAppDispatchContext();
-  const { pokemons: collectedPokemons } = useAppStateContext();
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [pokemonNameInput, setPokemonNameInput] = useState("");
+  const [inputError, setInputError] = useState(null);
 
   const { loading, data, error } = useQuery(GetPokemon, {
     variables: { name: pokemonName },
@@ -26,9 +23,55 @@ function usePokemonDetail() {
     fetchPolicy: "no-cache",
   });
 
-  const acquirePokemon = useCallback(() => {}, [pokemonName, pokemon]);
+  const openNameModal = useCallback(() => setModalOpen(true), []);
+  const closeNameModal = useCallback(() => setModalOpen(false), []);
 
-  return [{ pokemon, loading, data, error }, { acquirePokemon }];
+  const onChange = useCallback((e) => {
+    setPokemonNameInput(e.target.value);
+  }, []);
+
+  const savePokemon = () => {
+    const isValid = /\w{1,}/.test(pokemonNameInput);
+
+    if (!isValid) {
+      setInputError(true);
+    } else {
+      dispatch({
+        type: appType.addPokemon,
+        payload: {
+          pokemonName,
+          nickname: pokemonNameInput,
+        },
+      });
+
+      closeNameModal();
+      history.push("/");
+    }
+  };
+
+  const acquirePokemon = useCallback(() => {
+    const isEligibleForPokemon = Math.random() < 0.5;
+
+    if (isEligibleForPokemon) {
+      console.log("dapat");
+      openNameModal();
+    } else {
+      console.log("coba lagi");
+    }
+  }, [pokemonName, pokemon]);
+
+  return [
+    {
+      pokemon,
+      loading,
+      data,
+      error,
+      pokemonNameInput,
+      isModalOpen,
+      inputError,
+    },
+    { acquirePokemon, savePokemon, onChange, closeNameModal, openNameModal },
+  ];
 }
 
 export default usePokemonDetail;

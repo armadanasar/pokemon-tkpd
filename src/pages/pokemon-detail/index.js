@@ -1,20 +1,38 @@
 import React from "react";
 import { Text, Box, Image } from "goods-core";
 import InfiniteScroller from "react-infinite-scroller";
-import { Button } from "goods-ui";
+import { Button, Input } from "goods-ui";
 import usePokemonDetail from "./pokemon-detail.hook";
 import { capitalize } from "../../utils/helpers";
 import styled from "styled-components";
+import Modal from "react-modal";
 
 const LIMIT = 10;
-
+const customStyles = {
+  content: {
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -50%)",
+  },
+};
 const IndentedList = styled.ul`
   padding-inline-start: 32px;
 `;
 function PokemonDetailPage() {
   const [
-    { pokemon, loading, data, error },
-    { acquirePokemon },
+    {
+      pokemon,
+      loading,
+      data,
+      error,
+      isModalOpen,
+      pokemonNameInput,
+      inputError,
+    },
+    { acquirePokemon, savePokemon, onChange, closeNameModal, openNameModal },
   ] = usePokemonDetail();
 
   console.log("pokemon", pokemon);
@@ -22,6 +40,26 @@ function PokemonDetailPage() {
     <Box h="100vh" w as="main" fAlign="center" overflow="hidden">
       {pokemon && (
         <Box h maxW="544px" w fAlign="center" p="m" fJustify="space-between">
+          <Modal
+            style={customStyles}
+            isOpen={isModalOpen}
+            onRequestClose={closeNameModal}
+            contentLabel="Give Pokemon Name"
+          >
+            <Box w fJustify="center" align="center">
+              <Text rule="subtitle">Input Pokemon Name</Text>
+              <Input
+                placeholder="Input Pokemon Name"
+                onChange={onChange}
+                value={pokemonNameInput}
+                isError={inputError}
+                supText={inputError ? "Please input Pokemon Name" : ""}
+              />
+
+              <Button onClick={savePokemon}>Save Pokemon</Button>
+            </Box>
+          </Modal>
+
           <Box w>
             <Box w fAlign="center">
               <Text rule="title">{capitalize(pokemon?.name || "")}</Text>
@@ -69,7 +107,9 @@ function PokemonDetailPage() {
             </Box>
           </Box>
 
-          <Button w>Get This Pokemon</Button>
+          <Button w onClick={acquirePokemon}>
+            Get This Pokemon
+          </Button>
         </Box>
       )}
     </Box>

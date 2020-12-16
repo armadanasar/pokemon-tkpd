@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { useCallback, useState } from "react";
+import { useHistory } from "react-router-dom";
 import { useAppStateContext } from "../../context/app.context";
 import { GetPokemons } from "../../graph-query/pokemons";
 
@@ -10,15 +11,18 @@ function useHome() {
   const [cursor, setCursor] = useState("");
   const [hasMore, setHasMore] = useState(true);
   const { pokemons: collectedPokemons } = useAppStateContext();
-
+  const history = useHistory();
   const { loading, data, error, fetchMore } = useQuery(GetPokemons, {
     onCompleted: (data) => {
       setCursor(data.pokemons.next);
       setPokemons(data.pokemons.results);
     },
     fetchPolicy: "no-cache",
-    // skip: true,
   });
+
+  const goToPokemonDetailPage = (name) => () => {
+    history.push(`/detail/${name}`);
+  };
 
   const fetchData = useCallback(() => {
     if (cursor && hasMore) {
@@ -51,7 +55,7 @@ function useHome() {
 
   return [
     { pokemons, cursor, hasMore, collectedPokemons, loading },
-    { fetchData },
+    { fetchData, goToPokemonDetailPage },
   ];
 }
 

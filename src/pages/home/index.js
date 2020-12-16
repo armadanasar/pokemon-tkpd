@@ -9,7 +9,7 @@ const LIMIT = 10;
 function HomePage() {
   const [
     { pokemons, hasMore, collectedPokemons, loading },
-    { fetchData },
+    { fetchData, goToPokemonDetailPage },
   ] = useHome();
 
   return (
@@ -38,7 +38,13 @@ function HomePage() {
               }
             >
               {pokemons.map(({ name }, idx) => (
-                <Box w p="xs" bBottom="solid 1px" bBottomC="black20">
+                <Box
+                  w
+                  p="xs"
+                  bBottom="solid 1px"
+                  bBottomC="black20"
+                  onClick={goToPokemonDetailPage(name)}
+                >
                   <Text key={idx}>{name}</Text>
                 </Box>
               ))}
