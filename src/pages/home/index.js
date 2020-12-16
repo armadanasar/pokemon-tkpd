@@ -1,18 +1,14 @@
-import { useQuery } from "@apollo/client";
+import React from "react";
 import { Text, Box } from "goods-core";
-import { Button } from "goods-ui";
-import React, { lazy, Suspense, useEffect, useState } from "react";
-import InfiniteScroll from "react-infinite-scroll-component";
 import InfiniteScroller from "react-infinite-scroller";
-import { useAppStateContext } from "../../context/app.context";
-import { GetPokemons } from "../../graph-query/pokemons";
 import useHome from "./home.hook";
+import { Button } from "goods-ui";
 
 const LIMIT = 10;
 
 function HomePage() {
   const [
-    { pokemons, cursor, hasMore, collectedPokemons, loading },
+    { pokemons, hasMore, collectedPokemons, loading },
     { fetchData },
   ] = useHome();
 
@@ -20,10 +16,16 @@ function HomePage() {
     <Box w as="main" fAlign="center" overflow="hidden">
       {pokemons && (
         <Box maxW="544px" w fAlign="flex-start" p="s">
-          <Text
-            w
-            rule="body"
-          >{`Your Pokemon Count: ${collectedPokemons.length}`}</Text>
+          <Box w fDir="row" fJustify="space-between" fAlign="center">
+            <Text
+              w
+              rule="body"
+            >{`Your Pokemon Count: ${collectedPokemons.length}`}</Text>
+            <Button as="a" w="144px">
+              My Pokemons
+            </Button>
+          </Box>
+
           <Box w pt="xxs">
             <InfiniteScroller
               pageStart={0}

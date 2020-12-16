@@ -17,3 +17,30 @@ export const GetPokemons = gql`
     }
   }
 `;
+
+export const GetPokemon = gql`
+  query GetPokemon($name: String!) {
+    pokemon(name: $name) {
+      name
+      sprites {
+        back_default
+        front_default
+      }
+      types {
+        slot
+        type {
+          url
+          name
+        }
+      }
+      abilities {
+        ability {
+          url
+          name
+        }
+        is_hidden
+        slot
+      }
+    }
+  }
+`;
