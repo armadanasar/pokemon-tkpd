@@ -32,6 +32,12 @@ const reducer = produce((draft, action) => {
       localStorage.setItem("state", JSON.stringify(draft));
       return;
     case appType.removePokemon:
+      const deletionIdx = action.payload.index;
+      const filteredPokemons = draft.pokemons.filter(
+        (pokemon, idx) => idx !== deletionIdx
+      );
+
+      draft.pokemons = filteredPokemons;
       localStorage.setItem("state", JSON.stringify(draft));
       return;
     default:

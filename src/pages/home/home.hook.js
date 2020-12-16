@@ -24,6 +24,10 @@ function useHome() {
     history.push(`/detail/${name}`);
   };
 
+  const goToMyPokemonPage = () => {
+    history.push(`/my-pokemons`);
+  };
+
   const fetchData = useCallback(() => {
     if (cursor && hasMore) {
       const url = new URL(cursor);
@@ -55,7 +59,7 @@ function useHome() {
 
   return [
     { pokemons, cursor, hasMore, collectedPokemons, loading },
-    { fetchData, goToPokemonDetailPage },
+    { fetchData, goToPokemonDetailPage, goToMyPokemonPage },
   ];
 }
 

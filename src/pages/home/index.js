@@ -9,7 +9,7 @@ const LIMIT = 10;
 function HomePage() {
   const [
     { pokemons, hasMore, collectedPokemons, loading },
-    { fetchData, goToPokemonDetailPage },
+    { fetchData, goToPokemonDetailPage, goToMyPokemonPage },
   ] = useHome();
 
   return (
@@ -21,7 +21,7 @@ function HomePage() {
               w
               rule="body"
             >{`Your Pokemon Count: ${collectedPokemons.length}`}</Text>
-            <Button as="a" w="144px">
+            <Button as="a" w="144px" onClick={goToMyPokemonPage}>
               My Pokemons
             </Button>
           </Box>

@@ -13,7 +13,7 @@ function useMyPokemon() {
   const dispatch = useAppDispatchContext();
   const { pokemons: collectedPokemons } = useAppStateContext();
 
-  const [selectedPokemon, setSelectedPokemon] = useState([]);
+  const [selectedPokemon, setSelectedPokemon] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
 
   const openDeleteModal = () => setModalOpen(true);
@@ -21,7 +21,7 @@ function useMyPokemon() {
 
   const onDeletePokemon = (idx) => () => {
     setSelectedPokemon(idx);
-    setModalOpen(true);
+    openDeleteModal();
   };
 
   const confirmDeletePokemon = () => {
@@ -31,6 +31,8 @@ function useMyPokemon() {
         index: selectedPokemon,
       },
     });
+
+    closeDeleteModal();
   };
 
   return [
