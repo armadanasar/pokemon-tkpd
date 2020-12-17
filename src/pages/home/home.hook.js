@@ -23,9 +23,9 @@ function useHome() {
     history.push(`/detail/${name}`);
   };
 
-  const goToMyPokemonPage = () => {
+  const goToMyPokemonPage = useCallback(() => {
     history.push(`/my-pokemons`);
-  };
+  }, []);
 
   const fetchData = useCallback(() => {
     if (cursor && hasMore) {

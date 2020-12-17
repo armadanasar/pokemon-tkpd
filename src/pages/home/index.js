@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Text, Box, Image } from "goods-core";
 import InfiniteScroller from "react-infinite-scroller";
 import useHome from "./home.hook";
@@ -7,7 +7,7 @@ import PokemonLoading from "../../components/pokemon-loading";
 
 const LIMIT = 10;
 
-function HomePage() {
+const HomePage = memo(() => {
   const [
     { pokemons, hasMore, collectedPokemons, loading },
     { fetchData, goToPokemonDetailPage, goToMyPokemonPage },
@@ -59,6 +59,6 @@ function HomePage() {
       )}
     </Box>
   );
-}
+});
 
 export default HomePage;

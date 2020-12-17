@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Text, Box } from "goods-core";
 import useMyPokemon from "./my-pokemon.hook";
 import { Button } from "goods-ui";
@@ -19,7 +19,7 @@ const customStyles = {
 
 const LIMIT = 10;
 
-function MyPokemonPage() {
+const MyPokemonPage = memo(() => {
   const [
     { isModalOpen, collectedPokemons, selectedPokemon },
     { onDeletePokemon, confirmDeletePokemon, closeDeleteModal },
@@ -93,6 +93,5 @@ function MyPokemonPage() {
       )}
     </Box>
   );
-}
-
+});
 export default MyPokemonPage;

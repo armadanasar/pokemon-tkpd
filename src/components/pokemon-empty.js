@@ -1,7 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import { Text, Box, Image } from "goods-core";
 
-const PokemonEmpty = () => (
+const PokemonEmpty = memo(() => (
   <Box w h="100vh" as="main" fAlign="center" overflow="hidden">
     <Box f="1" maxW="544px" w fAlign="center" p="s" fJustify="center">
       <Image
@@ -13,6 +13,6 @@ const PokemonEmpty = () => (
       <Text pt="xs">Go catch your Pokemons...</Text>
     </Box>
   </Box>
-);
+));
 
 export default PokemonEmpty;

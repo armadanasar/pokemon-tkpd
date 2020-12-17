@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import { Text, Box, Image } from "goods-core";
 import InfiniteScroller from "react-infinite-scroller";
 import { Button, Input } from "goods-ui";
@@ -21,7 +21,7 @@ const customStyles = {
 const IndentedList = styled.ul`
   padding-inline-start: 32px;
 `;
-function PokemonDetailPage() {
+const PokemonDetailPage = memo(() => {
   const [
     {
       pokemon,
@@ -121,6 +121,6 @@ function PokemonDetailPage() {
       )}
     </Box>
   );
-}
+});
 
 export default PokemonDetailPage;

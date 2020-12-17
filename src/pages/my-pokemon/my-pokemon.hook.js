@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useHistory } from "react-router-dom";
 import {
   appType,
@@ -16,8 +16,8 @@ function useMyPokemon() {
   const [selectedPokemon, setSelectedPokemon] = useState(null);
   const [isModalOpen, setModalOpen] = useState(false);
 
-  const openDeleteModal = () => setModalOpen(true);
-  const closeDeleteModal = () => setModalOpen(false);
+  const openDeleteModal = useCallback(() => setModalOpen(true), []);
+  const closeDeleteModal = useCallback(() => setModalOpen(false), []);
 
   const onDeletePokemon = (idx) => () => {
     setSelectedPokemon(idx);
