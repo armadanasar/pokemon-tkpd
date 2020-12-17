@@ -3,7 +3,7 @@ import { Text, Box, Image } from "goods-core";
 
 const PokemonEmpty = () => (
   <Box w h="100vh" as="main" fAlign="center" overflow="hidden">
-    <Box h="100vh" maxW="544px" w fAlign="center" p="s" fJustify="center">
+    <Box f="1" maxW="544px" w fAlign="center" p="s" fJustify="center">
       <Image
         src="https://seeklogo.com/images/P/pokeball-logo-DC23868CA1-seeklogo.com.png"
         w="180px"

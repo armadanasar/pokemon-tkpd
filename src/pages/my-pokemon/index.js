@@ -28,7 +28,7 @@ function MyPokemonPage() {
   return (
     <Box w as="main" fAlign="center" overflow="hidden">
       {collectedPokemons && (
-        <Box maxW="544px" w fAlign="flex-start" p="s">
+        <Box f="1" maxW="544px" w fAlign="flex-start" p="s">
           {typeof selectedPokemon === "number" && selectedPokemon >= 0 && (
             <Modal
               style={customStyles}
