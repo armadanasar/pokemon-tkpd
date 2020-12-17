@@ -17,6 +17,7 @@ function useHome() {
       setCursor(data.pokemons.next);
       setPokemons(data.pokemons.results);
     },
+    fetchPolicy: "no-cache", // circumventing fetchMore of undefined error
   });
 
   const goToPokemonDetailPage = (name) => () => {
