@@ -3,6 +3,8 @@ import { Text, Box } from "goods-core";
 import useMyPokemon from "./my-pokemon.hook";
 import { Button } from "goods-ui";
 import Modal from "react-modal";
+import PokemonEntry from "../../components/pokemon-entry";
+import PokemonEmpty from "../../components/pokemon-empty";
 
 const customStyles = {
   content: {
@@ -73,31 +75,20 @@ function MyPokemonPage() {
             >{`Your Pokemon Count: ${collectedPokemons.length}`}</Text>
           </Box>
 
-          <Box w pt="xxs">
-            {collectedPokemons.map(({ pokemonName, nickname }, idx) => (
-              <Box
-                w
-                p="xs"
-                bBottom="solid 1px"
-                bBottomC="black20"
-                fDir="row"
-                fJustify="space-between"
-              >
-                <Box key={idx}>
-                  <Text>{pokemonName}</Text>
-                  <Text>{nickname}</Text>
-                </Box>
-                <Button
-                  c="white10"
-                  bg="red80"
-                  w="144px"
-                  onClick={onDeletePokemon(idx)}
-                >
-                  Delete
-                </Button>
-              </Box>
-            ))}
-          </Box>
+          {collectedPokemons.length === 0 ? (
+            <PokemonEmpty />
+          ) : (
+            <Box w pt="xxs">
+              {collectedPokemons.map(({ pokemonName, nickname }, idx) => (
+                <PokemonEntry
+                  pokemonName={pokemonName}
+                  nickname={nickname}
+                  idx={idx}
+                  onDelete={onDeletePokemon(idx)}
+                />
+              ))}
+            </Box>
+          )}
         </Box>
       )}
     </Box>

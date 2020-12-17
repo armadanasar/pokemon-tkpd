@@ -1,8 +1,9 @@
 import React from "react";
-import { Text, Box } from "goods-core";
+import { Text, Box, Image } from "goods-core";
 import InfiniteScroller from "react-infinite-scroller";
 import useHome from "./home.hook";
 import { Button } from "goods-ui";
+import PokemonLoading from "../../components/pokemon-loading";
 
 const LIMIT = 10;
 
@@ -11,6 +12,10 @@ function HomePage() {
     { pokemons, hasMore, collectedPokemons, loading },
     { fetchData, goToPokemonDetailPage, goToMyPokemonPage },
   ] = useHome();
+
+  if (loading) {
+    return <PokemonLoading />;
+  }
 
   return (
     <Box w as="main" fAlign="center" overflow="hidden">

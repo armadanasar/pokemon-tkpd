@@ -35,9 +35,16 @@ function PokemonDetailPage() {
     { acquirePokemon, savePokemon, onChange, closeNameModal, openNameModal },
   ] = usePokemonDetail();
 
-  console.log("pokemon", pokemon);
   return (
-    <Box h="100vh" w as="main" fAlign="center" overflow="hidden">
+    <Box
+      h
+      maxH="100%"
+      minH="100vh"
+      w
+      as="main"
+      fAlign="center"
+      overflow="scroll"
+    >
       {pokemon && (
         <Box h maxW="544px" w fAlign="center" p="m" fJustify="space-between">
           <Modal
@@ -108,7 +115,7 @@ function PokemonDetailPage() {
           </Box>
 
           <Button w onClick={acquirePokemon}>
-            Get This Pokemon
+            Catch This Pokemon
           </Button>
         </Box>
       )}

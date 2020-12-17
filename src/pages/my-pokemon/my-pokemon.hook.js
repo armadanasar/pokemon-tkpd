@@ -32,6 +32,7 @@ function useMyPokemon() {
       },
     });
 
+    setSelectedPokemon(null);
     closeDeleteModal();
   };
 
