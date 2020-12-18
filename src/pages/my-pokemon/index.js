@@ -18,15 +18,13 @@ const customStyles = {
   },
 };
 
-const LIMIT = 10;
-
 const MyPokemonPage = withNavbar({ title: "My Pokemons" })(
   memo(() => {
     const [
       { isModalOpen, collectedPokemons, selectedPokemon },
       { onDeletePokemon, confirmDeletePokemon, closeDeleteModal },
     ] = useMyPokemon();
-    console.log("pokemon", selectedPokemon);
+
     return (
       <Box w as="main" fAlign="center" overflow="hidden">
         {collectedPokemons && (

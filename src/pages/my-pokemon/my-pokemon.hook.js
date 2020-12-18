@@ -1,15 +1,11 @@
 import { useCallback, useState } from "react";
-import { useHistory } from "react-router-dom";
 import {
   appType,
   useAppStateContext,
   useAppDispatchContext,
 } from "../../context/app.context";
 
-const LIMIT = 10;
-
 function useMyPokemon() {
-  const history = useHistory();
   const dispatch = useAppDispatchContext();
   const { pokemons: collectedPokemons } = useAppStateContext();
 

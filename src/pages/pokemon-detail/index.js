@@ -1,6 +1,5 @@
 import React, { memo } from "react";
 import { Text, Box, Image } from "goods-core";
-import InfiniteScroller from "react-infinite-scroller";
 import { Button, Input } from "goods-ui";
 import usePokemonDetail from "./pokemon-detail.hook";
 import { capitalize } from "../../utils/helpers";
@@ -8,7 +7,6 @@ import styled from "styled-components";
 import Modal from "react-modal";
 import withNavbar from "../../hoc/with-navbar";
 
-const LIMIT = 10;
 const customStyles = {
   content: {
     top: "50%",
@@ -25,16 +23,8 @@ const IndentedList = styled.ul`
 const PokemonDetailPage = withNavbar({ title: "Pokemon Detail" })(
   memo(() => {
     const [
-      {
-        pokemon,
-        loading,
-        data,
-        error,
-        isModalOpen,
-        pokemonNameInput,
-        inputError,
-      },
-      { acquirePokemon, savePokemon, onChange, closeNameModal, openNameModal },
+      { pokemon, isModalOpen, pokemonNameInput, inputError },
+      { acquirePokemon, savePokemon, onChange, closeNameModal },
     ] = usePokemonDetail();
 
     return (
@@ -95,7 +85,7 @@ const PokemonDetailPage = withNavbar({ title: "Pokemon Detail" })(
 
                 <IndentedList>
                   {pokemon.types?.map(({ type }) => (
-                    <li>
+                    <li key={type?.name}>
                       <Text>{type?.name || ""}</Text>
                     </li>
                   ))}
@@ -108,7 +98,7 @@ const PokemonDetailPage = withNavbar({ title: "Pokemon Detail" })(
                 </Text>
                 <IndentedList>
                   {pokemon.abilities?.map(({ ability }) => (
-                    <li>
+                    <li key={ability?.name}>
                       <Text>{ability?.name || ""}</Text>
                     </li>
                   ))}

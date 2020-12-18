@@ -1,11 +1,5 @@
-import React, { lazy, memo, Suspense, useMemo } from "react";
-import {
-  Switch,
-  Route,
-  RouteProps,
-  RouteComponentProps,
-  Redirect,
-} from "react-router-dom";
+import React from "react";
+import { Switch, Route } from "react-router-dom";
 
 import HomePage from "./home";
 import PokemonDetail from "./pokemon-detail";

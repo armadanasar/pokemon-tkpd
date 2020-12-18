@@ -1,20 +1,21 @@
 import React, { memo } from "react";
-import { Text, Box, Image } from "goods-core";
+import { Text, Box } from "goods-core";
 import InfiniteScroller from "react-infinite-scroller";
 import useHome from "./home.hook";
-import { Button } from "goods-ui";
 import PokemonLoading from "../../components/pokemon-loading";
-import Navbar from "../../components/navbar";
 import withNavbar from "../../hoc/with-navbar";
-
-const LIMIT = 10;
+import PokemonError from "../../components/pokemon-error";
 
 const HomePage = withNavbar({ title: "Pokemons", withBackButton: false })(
   memo(() => {
     const [
-      { pokemons, hasMore, collectedPokemons, loading },
-      { fetchData, goToPokemonDetailPage, goToMyPokemonPage },
+      { pokemons, hasMore, collectedPokemons, loading, error },
+      { fetchData, goToPokemonDetailPage },
     ] = useHome();
+
+    if (error) {
+      return <PokemonError />;
+    }
 
     if (loading) {
       return <PokemonLoading />;
@@ -23,7 +24,13 @@ const HomePage = withNavbar({ title: "Pokemons", withBackButton: false })(
     return (
       <>
         {pokemons && (
-          <Box maxW="544px" w fAlign="flex-start" p="s">
+          <Box
+            maxW="544px"
+            w
+            fAlign="flex-start"
+            p="s"
+            data-testid="home-page-container"
+          >
             <Box w fDir="row" fJustify="space-between" fAlign="center">
               <Text
                 w
@@ -33,6 +40,7 @@ const HomePage = withNavbar({ title: "Pokemons", withBackButton: false })(
 
             <Box w pt="xxs">
               <InfiniteScroller
+                data-testid="pokemon-scroll-pane"
                 pageStart={0}
                 loadMore={fetchData}
                 hasMore={hasMore}
@@ -49,6 +57,7 @@ const HomePage = withNavbar({ title: "Pokemons", withBackButton: false })(
                     bBottom="solid 1px"
                     bBottomC="black20"
                     onClick={goToPokemonDetailPage(name)}
+                    key={idx}
                   >
                     <Text key={idx}>{name}</Text>
                   </Box>

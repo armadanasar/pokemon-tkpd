@@ -23,8 +23,8 @@ function usePokemonDetail() {
     fetchPolicy: "no-cache",
   });
 
-  const openNameModal = useCallback(() => setModalOpen(true), []);
-  const closeNameModal = useCallback(() => setModalOpen(false), []);
+  const openNameModal = useCallback(() => setModalOpen(true), [setModalOpen]);
+  const closeNameModal = useCallback(() => setModalOpen(false), [setModalOpen]);
 
   const onChange = useCallback((e) => {
     setPokemonNameInput(e.target.value);
@@ -53,12 +53,9 @@ function usePokemonDetail() {
     const isEligibleForPokemon = Math.random() < 0.5;
 
     if (isEligibleForPokemon) {
-      console.log("dapat");
       openNameModal();
-    } else {
-      console.log("coba lagi");
     }
-  }, [pokemonName, pokemon]);
+  }, [openNameModal]);
 
   return [
     {

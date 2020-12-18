@@ -1,5 +1,5 @@
 import React, { memo } from "react";
-import { Text, Box, Image, Icon } from "goods-core";
+import { Box } from "goods-core";
 import Navbar from "../components/navbar";
 
 const withNavbar = ({ title, withBackButton }) => (Component) =>

@@ -5,17 +5,23 @@ import ApolloInit from "./apollo-init";
 import { AppProvider } from "./context/app.context";
 import Pages from "./pages";
 
+export function CoreApp() {
+  return (
+    <GoodsProvider noGlobalStyle theme={theme}>
+      <GlobalStyle />
+      <Router>
+        <AppProvider>
+          <Pages />
+        </AppProvider>
+      </Router>
+    </GoodsProvider>
+  );
+}
+
 function App() {
   return (
     <ApolloInit>
-      <GoodsProvider noGlobalStyle theme={theme}>
-        <GlobalStyle />
-        <Router>
-          <AppProvider>
-            <Pages />
-          </AppProvider>
-        </Router>
-      </GoodsProvider>
+      <CoreApp />
     </ApolloInit>
   );
 }
