@@ -1,7 +1,7 @@
 import React, { lazy, Suspense } from "react";
 import { Switch, Route } from "react-router-dom";
-
 import HomePage from "./home";
+
 const PokemonDetail = lazy(() =>
   import(/* webpackChunkName: "pokemon-detail" */ "./pokemon-detail")
 );
