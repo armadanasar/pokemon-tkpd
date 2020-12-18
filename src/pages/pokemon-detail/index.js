@@ -80,6 +80,20 @@ const PokemonDetailPage = withNavbar({ title: "Pokemon Detail" })(
 
               <Box w pb="s">
                 <Text rule="subtitle" pb="xs">
+                  Moves
+                </Text>
+
+                <IndentedList>
+                  {pokemon.moves?.map(({ move }) => (
+                    <li key={move?.name}>
+                      <Text>{move?.name || ""}</Text>
+                    </li>
+                  ))}
+                </IndentedList>
+              </Box>
+
+              <Box w pb="s">
+                <Text rule="subtitle" pb="xs">
                   Type
                 </Text>
 

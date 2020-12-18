@@ -33,6 +33,12 @@ export const GetPokemon = gql`
           name
         }
       }
+      moves {
+        move {
+          url
+          name
+        }
+      }
       abilities {
         ability {
           url
