@@ -17,7 +17,9 @@ const BackButton = memo(({ title, withBackButton = true }) => {
           data-testid="navbar-back-button"
         />
       )}
-      <Text pr="xxs">{title}</Text>
+      <Text pl={withBackButton && "xxs"} rule="subtitle">
+        {title}
+      </Text>
     </Box>
   );
 });
